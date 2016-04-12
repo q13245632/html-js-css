@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>时间的水中倒影</title>
+	<style type="text/css">
+	.timer{
+		font-size: 14px;
+		font-family: "MicroSoft YaHei";
+		font-weight: bold;
+		color: #00008D;
+		text-align: center;
+	}
+	</style>
+</head>
+<body onload="init()">
+	<div class="wrapper">
+	    <h1>时间的水中倒影</h1>
+		<p>
+			<div id="tim1" style="position:absolute;width: 10px;height: 10px;top: 100px;left: 100px;" class="timer"></div>
+			<div id="tim2" style="position:absolute;top:115px;left:100px;filter:alpha(opacity=20);font-family: italic;-webkit-transform: scaleY(-1);" class="timer"></div>
+		</p>
+	</div>
+	<script type="text/javascript">
+		var ctimer;
+		var tim1=document.getElementById('tim1');
+		var tim2=document.getElementById('tim2');
+		function init(){
+				settimes();
+		}
+		function settimes(){
+			var date=new Date();
+			var hours=date.getHours();
+			var minutes=date.getMinutes();
+			var seconds=date.getSeconds();
+			if (hours<10) {
+				hours="0"+hours;
+			}
+		    if (minutes<10) {
+				minutes="0"+minutes;
+			}
+		    if (seconds<10) {
+				seconds="0"+seconds;
+			}
+			tim1.innerHTML=hours+":"+minutes+":"+minutes;
+			tim2.innerHTML=hours+":"+minutes+":"+minutes;
+            ctimer=setTimeout('settimes()',960);
+		}
+
+	</script>
+</body>
+</html>
