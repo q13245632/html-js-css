@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+
+	<style type="text/css">
+	.note ul {
+		width: 200px;
+		padding-top: 0 15px;
+		line-height: 30px;
+		font-size: 12px;
+		}
+    .note ul li {
+    	height: 30px;
+    	white-space: nowrap;
+    	width: 200px;
+    	overflow: hidden;
+		}
+	.note ul li a{
+		list-style: none;
+	}
+		</style>
+</head>
+<body>
+	<div class="note">
+		<h3>促销公告</h3>
+		<div class="notelist">
+			<ul>
+				<li>
+					<a href="#" target="_blank">地狱火鼠标垫，一酷到底</a>
+				</li>
+				<li>
+					<a href="#" target="_blank" class="red">戴尔直销引爆足球盛宴</a>
+				</li>
+				<li>
+					<a href="#" target="_blank">力胜 超值超爽手 防水键盘 热卖！</a>
+				</li>
+				<li>
+					<a href="#" target="_blank" class="red">触动带给你无限音乐！</a>
+				</li>
+			</ul>
+		</div>
+	</div>
+</body>
+	<script type="text/javascript">
+			$(document).ready(function(){
+			note();
+		});
+		function note(){
+			var fns={
+				_up:function(){
+					$(".note>div>ul").stop().animate({marginTop:"-30px"},500,
+						function(){
+							$(".note>div>ul>li:lt(l)").appendTo($(".note>div>ul"));
+							$(".note>div>ul").css("marginTop",0);
+						});
+				}
+			};	
+		var _autoUp=null;
+		$(".note").mouseover(function(){
+			autoStop2();
+		});
+		$(".note").mouseout(function(){
+			_autoUp=setInterval(function(){fns._up;},1500);
+		});
+		var autoPlay2=function(){
+			_autoUp=setInterval(function(){fns._up;},1500);
+		};
+		var autoStop2=function(){
+			clearInterval(_autoUp);
+			_autoUp=null;
+		};
+		autoPlay2();
+	}
+	</script>
+</html>
