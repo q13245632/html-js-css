@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>树的遍历</title>
+</head>
+<body>
+	<script type="text/javascript">
+	/**广度优先遍历
+广度优先遍历是从二叉树的第一层（根结点）开始，自上至下逐层遍历；在同一层中，按照从左到右的顺序对结点逐一访问。
+实现：
+使用数组模拟队列。首先将根节点归入队列。当队列不为空的时候，执行循环：取出队列的一个节点，如果该结点的左子树为非空，则将该结点的左子树入队列；如果该结点的右子树为非空，则将该结点的右子树入队列。**//
+var levelOrderTraversal = function(node) { 
+ if(!node) {  
+  throw new Error('Empty Tree')
+ } 
+ var que = []
+ que.push(node) 
+ while(que.length !== 0) {
+  node = que.shift()  
+  console.log(node.value)  
+  if(node.left) que.push(node.left)  
+  if(node.right) que.push(node.right)
+ }
+}
+/**递归遍历
+觉得用这几个字母表示递归遍历的三种方法不错：
+D：访问根结点，L：遍历根结点的左子树，R：遍历根结点的右子树。
+先序遍历：DLR
+中序遍历：LDR
+后序遍历：LRD
+这3种遍历都属于递归遍历，或者说深度优先遍历（Depth-First Search，DFS），因为它总
+ 是优先往深处访问。**/
+ //先序遍历的递归算法：
+ var preOrder = function (node) { 
+ if (node) {  
+  console.log(node.value);
+  preOrder(node.left);
+  preOrder(node.right);
+ }
+}
+//中序遍历的递归算法：
+var inOrder = function (node) { 
+ if (node) {
+  inOrder(node.left);  
+  console.log(node.value);
+  inOrder(node.right);
+ }
+}
+//后序遍历的递归算法：
+var postOrder = function (node) { 
+ if (node) {
+  postOrder(node.left);
+  postOrder(node.right);  
+  console.log(node.value);
+ }
+}
+//非递归深度优先遍历
+var preOrderUnRecur = function(node) { 
+ if(!node) {  
+  throw new Error('Empty Tree')
+ } 
+ var stack = []
+ stack.push(node) 
+ while(stack.length !== 0) {
+  node = stack.pop()  
+  console.log(node.value)  
+  if(node.right) stack.push(node.right)  
+  if(node.left) stack.push(node.left)
+ }
+}
+//非递归中序:先把数的左节点推入栈，然后取出，再推右节点。
+var inOrderUnRecur = function(node) { 
+ if(!node) {  
+  throw new Error('Empty Tree')
+ } 
+ var stack = [] 
+ while(stack.length !== 0 || node) {  
+  if(node) {
+   stack.push(node)
+   node = node.left
+  } else {
+   node = stack.pop()   
+   console.log(node.value)
+   node = node.right
+  }
+ }
+}
+/**非递归后序(使用一个栈)这里使用了一个临时变量记录上次入栈/出栈的节点。思路是先把根节点和左树推入栈，然后取出左树，再推入右树，取出，最后取跟节点。**/
+var posOrderUnRecur = function(node) { 
+ if(!node) {  
+  throw new Error('Empty Tree')
+ } 
+ var stack = []
+ stack.push(node) 
+ var tmp = null
+ while(stack.length !== 0) {
+  tmp = stack[stack.length - 1]  
+  if(tmp.left && node !== tmp.left && node !== tmp.right) {
+   stack.push(tmp.left)
+  } else if(tmp.right && node !== tmp.right) {
+   stack.push(tmp.right)
+  } else {   
+   console.log(stack.pop().value)
+   node = tmp
+  }
+ }
+}
+//非递归后序(使用两个栈)
+var posOrderUnRecur = function(node) { 
+ if(node) {  
+  var s1 = []  
+  var s2 = []
+  s1.push(node)  
+  while(s1.length !== 0) {
+   node = s1.pop()
+   s2.push(node)   
+   if(node.left) {
+    s1.push(node.left)
+   }   
+   if(node.right) {
+    s1.push(node.right)
+   }
+  }  
+  while(s2.length !== 0) {   
+   console.log(s2.pop().value);
+  }
+ }
+}
+
+
+//Morris遍历
+//这个方法即不用递归也不用栈实现三种深度遍历，空间复杂度为O(1)
+//Morris先序:
+var morrisPre = function(head) { 
+ if(!head) {  
+  return
+ } 
+ var cur1 = head,
+   cur2 = null
+ while(cur1) {
+  cur2 = cur1.left  
+  if(cur2) {   
+   while(cur2.right && cur2.right != cur1) {
+    cur2 = cur2.right
+   }   
+   if(!cur2.right) {
+    cur2.right = cur1    
+    console.log(cur1.value)
+    cur1 = cur1.left    
+    continue
+   } else {
+    cur2.right = null
+   }
+  } else {   
+    console.log(cur1.value)
+  }
+  cur1 = cur1.right
+ }
+}
+//Morris中序:
+var morrisIn = function(head) { 
+ if(!head) {  
+  return
+ } 
+ var cur1 = head,
+   cur2 = null
+ while(cur1) {
+  cur2 = cur1.left  
+  if(cur2) {   
+   while(cur2.right && cur2.right !== cur1) {
+    cur2 = cur2.right
+   }   
+   if(!cur2.right) {
+    cur2.right = cur1
+    cur1 = cur1.left    
+    continue
+   } else {
+    cur2.right = null
+   }
+  }  
+  console.log(cur1.value)
+  cur1 = cur1.right
+ }
+}
+//Morris后序:
+
+21
+22
+23
+24
+25
+26
+ 
+var morrisPost = function(head) { 
+ if(!head) {  
+  return
+ } 
+ var cur1 = head,
+   cur2 = null
+ while(cur1) {
+  cur2 = cur1.left  
+  if(cur2) {   
+   while(cur2.right && cur2.right !== cur1) {
+    cur2 = cur2.right
+   }   
+   if(!cur2.right) {
+    cur2.right = cur1
+    cur1 = cur1.left    
+    continue
+   } else {
+    cur2.right = null
+    printEdge(cur1.left)
+   }
+  }
+  cur1 = cur1.right
+ }
+ printEdge(head)
+}
+	</script>
+</body>
+</html>
