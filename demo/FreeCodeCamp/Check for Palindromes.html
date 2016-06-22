@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+</body>
+<script type="text/javascript">
+function palindrome(str) {
+  // Good luck!
+  str = str.replace(/[^a-z\d]/ig,"");
+  str = str.toLowerCase();
+  var arr = str.split('');
+  if (str == arr.reverse().join("")) {
+    return true;
+  } else {
+    return false;
+  }
+}
+palindrome("not a palindrome");
+</script>
+</html>
