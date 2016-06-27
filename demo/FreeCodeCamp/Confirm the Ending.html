@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Document</title>
+</head>
+<body>
+  
+</body>
+<script type="text/javascript">
+  function confirmEnding(str, target) {
+  // "Never give up and good luck will find you."
+  // -- Falcor
+  var m = str.length;
+  var n = target.length;
+  var k = m - n;
+  str = str.substr(k,n);
+  if (str == target) {
+    return true;
+  } else {
+    return false;
+  }
+}
+
+confirmEnding("Bastian", "n");
+
+</script>
+</html>
