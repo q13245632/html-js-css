@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	
+</body>
+<script type="text/javascript">
+  function chunkArrayInGroups(arr, size) {
+  	/*
+  	Write a function that splits an array (first argument) into groups the length of size (second argument) and returns them as a two-dimensional array.
+  	 */
+  // Break it up.
+  var len = arr.length;
+  var n = len / size;
+  var m = len % size;
+  var array = [];
+  for (var i = 0; i < n; i++) {
+    array.push(arr.slice(i*size,i*size+size));
+  }  
+  if (m > 0) {
+    array.push(arr.slice(len-m,len));
+    array.pop();//Why does there use the pop?
+  }
+  return array;
+}
+
+chunkArrayInGroups([0, 1, 2, 3, 4, 5, 6, 7, 8], 2);
+</script>
+</html>
